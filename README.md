@@ -1,9 +1,9 @@
-# overthink
+# paretothink
 
 > Make any model reason *optimally* — the right amount of compute for each prompt,
 > via compute-optimal test-time scaling.
 
-`overthink` is a fast, pluggable **test-time-compute engine**: an OpenAI-compatible
+`paretothink` is a fast, pluggable **test-time-compute engine**: an OpenAI-compatible
 proxy that decides *how hard your model should think on each prompt* — through best-of-N,
 confidence-weighted voting, **deep MCTS**, **pluggable Process Reward Models (PRMs)**,
 and the differentiator: **compute-optimal per-prompt budget allocation** (more compute on

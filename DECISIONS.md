@@ -90,3 +90,24 @@
   (rejected — it no longer reflects where the pain actually is in mid-2026).
 - **Why:** directly evidences the reframed north star and the broadcast hook. No new GPU
   budget (same single-GPU setup, swap the policy).
+
+### 2026-06-02 · Project renamed `overthink` → `paretothink`
+- **Supersedes** the 2026-06-01 "Project name = `overthink`" entry above (kept for history).
+- **Why rename:** `overthink` connotes the *failure mode the tool prevents* — overthinking =
+  wasteful — which directly contradicts the reframed pitch ("reason **optimally**"). `paretothink`
+  instead names the value: pushing each prompt onto the **accuracy-vs-cost Pareto frontier**, the
+  exact shape of the north-star chart, and it reads natively to the technical/lab (MTS) audience.
+  Narrative bonus: `overthink → paretothink` flips the "think" valence from *too much* → *optimal*.
+- **Alternatives considered (PyPI-gauntleted 2026-06-02):** `pareto` (BLOCKED — PyPI taken + "Pareto
+  Security" brand + crowded namespace), `throttle` (BLOCKED — taken; connotes *limiting* not
+  *optimizing*), `governor` (BLOCKED — taken + Rust rate-limiter brand), `paropt` (GO but obscure +
+  34★ academic repo collision), `rightthink` (rejected — Newspeak/Orwell echo: goodthink/crimethink).
+- **Availability:** `paretothink` PyPI 🟢 free; GitHub 🟢 no collision; domains `.com/.dev/.ai/.io`
+  🟢 no DNS record (likely free); trademark 🟡 no direct conflict (nearest unrelated: Pareto Security,
+  a UK "Pareto Thinking" coach, the "ParaThinker" paper) — **confirm registrar purchase + manual
+  USPTO TESS before any spend/launch.**
+- **Note on the `-think` suffix:** weaker Orwell concern than `rightthink` because `pareto` is a
+  neutral technical term, not an ideological-correctness word. Accepted.
+- **Scope of rename:** all 6 Phase-0 docs updated; GitHub repo renamed `overthink` → `paretothink`
+  + remote URL updated; PyPI placeholder still to register. English verb "overthinking" in prose
+  left intact (it is not the project name).

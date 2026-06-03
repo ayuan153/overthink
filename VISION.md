@@ -1,6 +1,6 @@
 # VISION.md
 
-> The long-term arc for `overthink`. This grounds every later decision. Changing
+> The long-term arc for `paretothink`. This grounds every later decision. Changing
 > anything here is a deliberate act that must be flagged to the human and logged in
 > `DECISIONS.md`.
 
@@ -15,14 +15,14 @@ This matters *more* now that strong models reason natively. Today's models defau
 **high / `xhigh` reasoning** and burn 10K–40K thinking tokens on every prompt — including
 the trivial, search-engine-style questions users actually send. And teams **refuse to
 hand the compute decision to the model as a black box**: they want more intelligence in
-*how much* to think, with a decision they can see, tune, and audit. `overthink` is that
+*how much* to think, with a decision they can see, tune, and audit. `paretothink` is that
 transparent, per-prompt compute controller.
 
 The project that defines **"reasoning orchestration"** for open models.
 
 ## The one-sentence pitch
 
-> `pip install overthink`, point it at any OpenAI-compatible endpoint, and it spends
+> `pip install paretothink`, point it at any OpenAI-compatible endpoint, and it spends
 > *just enough* compute on each prompt — AlphaZero-style search + a pluggable reward
 > model on the hard ones, instant answers on the easy ones — for reasoning-model
 > accuracy at a fraction of the tokens, with a compute decision you can see instead of
@@ -100,7 +100,7 @@ If those curves are real and reproducible on a single GPU, the project earns its
 
 ## Principles
 
-- **Standalone-first.** `overthink` owns its eval/benchmark harness and has zero sibling
+- **Standalone-first.** `paretothink` owns its eval/benchmark harness and has zero sibling
   dependency. Never couple it to another project.
 - **Portfolio anchor.** Highest ceiling, highest signal. Detail-work must not erode the
   MCTS+PRM north star.

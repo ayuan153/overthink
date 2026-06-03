@@ -56,5 +56,5 @@ This project is built in explicit phases. **Do not jump ahead.**
 > (which default to high/`xhigh` effort and over-think trivial prompts). The launch
 > milestone is the MCTS+PRM+budget demo, not the v0.1 plumbing.
 
-`overthink` is **standalone-first**: its own eval/benchmark harness, zero sibling
+`paretothink` is **standalone-first**: its own eval/benchmark harness, zero sibling
 dependency. It is the portfolio anchor. Resist coupling it to anything else.

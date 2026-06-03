@@ -1,4 +1,4 @@
-# DESIGN.md — `overthink` Phase 0
+# DESIGN.md — `paretothink` Phase 0
 
 > Phase-0 output: architecture, locked v0.1 scope, and key decisions. **No production
 > code exists yet and none should be written until the design it implements is locked
@@ -20,18 +20,23 @@ non-reasoning ones. The launch milestone is the MCTS+PRM+budget demo, not v0.1.
 
 ---
 
-## 1. Name check — `overthink` → GO
+## 1. Name — `paretothink` (renamed from `overthink`, 2026-06-02)
 
-| Channel | `overthink` | `ponder` (fallback) |
-|---|---|---|
-| **PyPI** (hard constraint) | 🟢 **Available** — `/simple/overthink/` 404, unregistered. | 🔴 **Blocked** — name claimed (yanked `ponder-org` pkg); PEP 541 reclaim slow/uncertain. |
-| **GitHub** | 🟢 `github.com/overthink` is a personal user (no competing project). | 🔴 `ponder-sh/ponder` (1.1k★ EVM indexer) + others. |
-| **Domain** | 🟡 `overthink.dev` / `.ai` did not resolve (likely free; unconfirmed). | 🔴 `ponder.ai` taken (YC voice-AI). |
-| **Trademark** | 🟡 No obvious USPTO conflict in SW/AI (live TESS not run). | 🔴 Multiple active "Ponder" AI marks. |
+**`paretothink`** — the name signals the product: pushing each prompt onto the
+**accuracy-vs-cost Pareto frontier** (the *right* compute, not the most). Renamed from the
+original Phase-0 pick `overthink`, which ironically connoted the exact failure mode the
+tool prevents (full rationale in `DECISIONS.md`, 2026-06-02).
 
-**Decision:** Use **`overthink`**. Register a placeholder `0.0.1` on PyPI promptly to
-secure the name. Treat domain/trademark as 🟡 unconfirmed — do a live TESS + registrar
-check before any spend or public launch.
+| Channel | `paretothink` |
+|---|---|
+| **PyPI** (hard constraint) | 🟢 **Available** — `/simple/paretothink/` 404, unregistered. |
+| **GitHub** | 🟢 No competing repo/org with the exact name. |
+| **Domain** | 🟢 `.com` / `.dev` / `.ai` / `.io` all show no DNS record (likely free; confirm at a registrar). |
+| **Trademark** | 🟡 No direct conflict found; nearest are unrelated — Pareto Security (endpoint sec), a UK "Pareto Thinking" coach, the "ParaThinker" paper (arXiv 2509.04475). Live USPTO TESS not yet run. |
+
+**Decision:** Use **`paretothink`**. Register a placeholder `0.0.1` on PyPI promptly to
+secure the name. Before any spend or public launch: confirm domain purchase at a registrar
+and run a manual USPTO TESS search. (`overthink` was the original pick — superseded.)
 
 ---
 
@@ -159,7 +164,7 @@ much** compute, per prompt, against a global budget — not just **which** techn
 
 The builder's AlphaZero / self-play background maps directly:
 
-| AlphaZero | `overthink` MCTS |
+| AlphaZero | `paretothink` MCTS |
 |---|---|
 | Policy network (move priors) | **Policy LLM** — samples candidate next reasoning steps; its sequence prob is the prior `P(s,a)`. |
 | Value network | **PRM** — scores a partial trajectory `V(s) ∈ [0,1]`. The PRM *is* the value head. |
@@ -280,11 +285,11 @@ not any single feature.
 > paper IDs before posting.
 
 **HN title:**
-`Show HN: overthink — compute-optimal test-time scaling for any OpenAI-compatible model`
+`Show HN: paretothink — compute-optimal test-time scaling for any OpenAI-compatible model`
 
 **X/Twitter thread (skeleton):**
 1. Hook — *"I spent years building AlphaZero-style MCTS + self-play RL for game AI. I
-   pointed the same search at LLM reasoning. `pip install overthink` decides how hard
+   pointed the same search at LLM reasoning. `pip install paretothink` decides how hard
    your model should think on each prompt — and proves it on the token bill."*
 2. The problem — models reason natively now, but think at a fixed high/`xhigh` effort on
    *every* prompt; the knobs are manual and nobody wants to hand "how hard to think" to a
@@ -304,7 +309,7 @@ sitting up-and-to-the-left. One image carries the launch.
 ---
 
 ## Open questions for human review (Phase 0 → Phase 1 gate)
-1. Confirm `overthink` (vs registering PyPI placeholder now) — and run live TESS/domain check.
+1. Register the `paretothink` PyPI placeholder `0.0.1`; run manual USPTO TESS + registrar domain check before spend. (Rename `overthink` → `paretothink` done 2026-06-02.)
 2. Approve the **KV-branching = OUT for v0.1** decision (§3).
 3. Approve the **Lagrangian budget-allocation** framing as the core IP (§4.2).
 4. Approve v0.1 scope (§6) — explicitly *not* broadcast.
