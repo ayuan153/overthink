@@ -314,3 +314,61 @@ sitting up-and-to-the-left. One image carries the launch.
 3. Approve the **Lagrangian budget-allocation** framing as the core IP (§4.2).
 4. Approve v0.1 scope (§6) — explicitly *not* broadcast.
 5. Greenlight Phase 1 (v0.1 plumbing) — or request design changes first.
+
+---
+
+## 10. Phase 1a — the proof-slice spec (BUILDING)
+
+> The thinnest end-to-end system that produces the **first accuracy-vs-cost (Pareto)
+> frontier** on MATH-500 via Bedrock. Validates the load-bearing claim before any
+> horizontal plumbing. Parameters below are locked from the 2026-06-03 Bedrock probe
+> (`DECISIONS.md`). **No** proxy server, MCTS, PRM, or streaming in this slice.
+
+### 10.1 Goal & success criterion
+Plot accuracy (y) vs mean output-tokens/problem (x) for **fixed** strategies (1-shot,
+BoN-4/8/16 + weighted vote) and the **adaptive** budget router. Success (directional, for
+the slice): the adaptive point **matches the best fixed-BoN accuracy at materially fewer
+tokens** (Pareto-dominates), reproducing the north-star shape on a real model.
+
+### 10.2 Models (Bedrock, us-east-1, acct 137164215426)
+- Baseline policy: **`meta.llama3-8b-instruct-v1:0`**.
+- Reasoning policy (token-savings cut, optional this slice): **`us.deepseek.r1-v1:0`**.
+- Access confirmed; Converse API returns `usage.inputTokens/outputTokens` uniformly.
+
+### 10.3 Components (minimal)
+| Module | Responsibility |
+|---|---|
+| `client.py` | Bedrock **Converse** wrapper → `(text, in_tokens, out_tokens)`; retries/throttle handling. |
+| `checker.py` | Extract final answer (`\boxed{}` → last number) → normalize → **SymPy** equivalence (numeric fallback). Deterministic; no LLM-as-judge. |
+| `bon.py` | Sample N completions; **confidence-weighted majority vote** over checked-equivalent answers. |
+| `router.py` | Difficulty **probe** (k0 samples → consensus `p̂`); `d = 1 − p̂`; **escalation ladder** R0→R1 with **early-stop at τ_stop**; **λ** token-price knob. |
+| `data.py` | MATH-500 loader (fetch + cache `data/math500.jsonl`; `--limit` subset). |
+| `eval.py` | Run a strategy over a problem set → accuracy + token totals → JSON results. |
+| `cli.py` | `paretothink-eval` entrypoint: choose strategy/model/limit; emit results + frontier rows. |
+
+### 10.4 Locked parameters (from the probe)
+- **k0 = 5**, temperature **0.7** (probe + BoN sampling).
+- **τ_stop = 0.80** consensus → stop at R0 and return modal answer (probe showed
+  consensus ≥0.8 ⇒ correct on 3/3 easy; ≤0.4 ⇒ unreliable).
+- Escalation ladder: **R0** = k0 probe → if `p̂ ≥ τ_stop` STOP; **R1** = escalate to
+  **BoN-N** (N ∈ {8,16}) + weighted vote. (**R2 = MCTS+PRM** is the launch milestone, not here.)
+- Difficulty→budget (v0): single global **token-price λ**; per prompt, escalate R0→R1 only
+  while predicted marginal-accuracy/token > λ. v0 approximation: a monotone `N(d)` schedule
+  gated by τ_stop. **Sweeping λ (and N) traces the frontier.**
+
+### 10.5 Metrics & accounting
+- **Accuracy**: fraction SymPy-equivalent to gold `answer`. Unparseable = wrong (tracked).
+- **Cost axis**: **mean output-tokens/problem**, summed across all samples/rungs spent on
+  that problem (apples-to-apples vs fixed BoN). Report input tokens + $ separately.
+- Reasoning policy: track output tokens as the over-think proxy (probe: R1 spent 565 tokens
+  on "capital of France").
+
+### 10.6 Run plan & cost guardrail
+- First run: **`--limit 50`** MATH-500 problems × {1-shot, BoN-4, BoN-8, BoN-16, adaptive}.
+- Llama-3-8B is cheap (~$0.0003/$0.0006 per 1k in/out); 50×~30 calls ≈ well under **$5**.
+  Hard cap the run; no load testing.
+- Output: `eval_results/frontier_<timestamp>.json` + a printed table; chart rendering optional.
+
+### 10.7 Out of scope (deferred to v0.1 / launch)
+OpenAI-compatible proxy server, MCTS-over-LLM, pluggable PRM, streaming, KV-branching,
+learned difficulty head, multi-model search. The slice exists to earn the chart.

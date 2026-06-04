@@ -11,11 +11,11 @@ decision **transparent/auditable, not a black box**. Applies *to* native reasoni
 is the MCTS+PRM+budget demo**, not the v0.1 plumbing.
 
 ## Current phase
-**Phase 0 — research + design only. NO production code.** ← we are here. Design + reframe
-**locked**; awaiting explicit Phase 1 greenlight from the human.
+**Phase 1a — BUILDING the proof-slice** (first accuracy-vs-cost frontier on MATH-500 via Bedrock).
+Both premises validated by the 2026-06-03 Bedrock probe; spec locked in `DESIGN.md` §10.
 
 ## Last updated
-2026-06-02 (late) · by: Phase 0 rename session (`overthink` → `paretothink`)
+2026-06-03 · by: Phase 1a build session
 
 ## Done so far
 - ✅ Repo initialized (`git init`, branch `main`), committed & pushed. Remote: `github.com/ayuan153/paretothink` (renamed from `overthink`).
@@ -33,15 +33,18 @@ is the MCTS+PRM+budget demo**, not the v0.1 plumbing.
 - ✅ Leapfrog watch + broadcast draft. `DESIGN.md` §8–9.
 
 ## NEXT (do this when resuming)
-**Phase 0 complete; reframe + rename locked.** Direction approved by the human; awaiting explicit
-greenlight to write Phase 1 code. Immediate next = scope the Phase 1 **vertical proof-slice**
-(thinnest end-to-end path to the killer chart). When greenlit, the first build phase is:
+**Phase 1a building (greenlit 2026-06-03).** Bedrock probe validated both premises (see
+`DECISIONS.md` 2026-06-03). Building the proof-slice per `DESIGN.md` §10, committing in slices:
 
-1. Register PyPI placeholder `paretothink==0.0.1` (secure the name).
-2. Run live TESS trademark + domain registrar check (close the 🟡 items in §1).
-3. **Phase 1 (v0.1 plumbing):** OpenAI-compatible proxy skeleton → BoN + confidence-weighted
-   vote → budget router (difficulty probe + Lagrangian allocation) → MATH-500 eval harness.
-   Build in that order; lock each piece's design in `DESIGN.md` before coding it.
+1. ✅ DESIGN §10 spec + STATUS/DECISIONS logged.
+2. ⬜ Scaffold package + pyproject + venv; SymPy answer-checker + unit tests.
+3. ⬜ Bedrock Converse client wrapper (text + token usage).
+4. ⬜ BoN + confidence-weighted vote + consensus difficulty router (k0=5, τ_stop=0.80, λ ladder) + mock-client tests.
+5. ⬜ Eval harness + MATH-500 loader + CLI (1-shot / BoN-k / adaptive → accuracy + tokens).
+6. ⬜ Run on Bedrock (--limit 50) → first cost-frontier data/chart; record in DESIGN/STATUS.
+7. ⬜ yolo-reviewer pass; address findings; push.
+
+Side tasks (human): register PyPI `paretothink==0.0.1`; live USPTO TESS + registrar domain check; rename GitHub repo `overthink`→`paretothink` + `git remote set-url`.
 
 ## Blocked / needs human decision
 - Approve the 5 open questions in `DESIGN.md` §"Open questions" before Phase 1.

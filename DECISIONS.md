@@ -111,3 +111,18 @@
 - **Scope of rename:** all 6 Phase-0 docs updated; GitHub repo renamed `overthink` → `paretothink`
   + remote URL updated; PyPI placeholder still to register. English verb "overthinking" in prose
   left intact (it is not the project name).
+
+### 2026-06-03 · Bedrock probe validated both load-bearing premises → Phase 1a greenlit
+- **Setup:** AWS Bedrock, kadmon Isengard acct **137164215426**, us-east-1, Converse API
+  (uniform `usage.inputTokens/outputTokens`). Cost ~$0.10. (Profile not present in this
+  sandbox's `~/.aws`; creds via `get_aws_creds`. First attempt used wrong fallback acct
+  770687575991 — corrected to 137164215426, the real kadmon account.)
+- **Premise 1 (difficulty estimator): CONFIRMED.** Llama-3-8B, k=5 @ T0.7 — easy prompts
+  (7×8, 15+27, 3⁴) → consensus 0.8–1.0, 1–2 distinct, all correct; hard prompts → consensus
+  0.2–0.4, 4–5 distinct, modal often wrong. Consensus ≥0.8 ⇒ correct (3/3); ≤0.4 ⇒ unreliable.
+- **Premise 2 (token-savings): CONFIRMED.** DeepSeek-R1 spent **565 output tokens on "capital
+  of France"** vs 2033 on a hard AIME problem (3.6×). Reasoning models over-think trivial prompts.
+- **Locked Phase-1a params:** k0=5, temperature 0.7, τ_stop=0.80, escalation ladder
+  R0(probe)→R1(BoN-N) with λ token-price; provider-reported token accounting; SymPy
+  deterministic answer-checking (no LLM-as-judge). Full spec in `DESIGN.md` §10.
+- **Decision:** proceed to BUILD the proof-slice (proof-first, not plumbing-first).
