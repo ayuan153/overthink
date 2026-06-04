@@ -22,6 +22,8 @@ env/
 # Eval artifacts (future phases)
 runs/
 results/
+eval_results/
+data/
 *.ckpt
 *.safetensors
 
