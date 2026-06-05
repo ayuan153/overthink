@@ -15,6 +15,13 @@ class TestExtract:
     def test_answer_phrase(self):
         assert extract_answer("The final answer is 686.") == "686"
 
+    def test_answer_phrase_decimal(self):
+        # decimal must survive the fallback (regression: used to truncate to "3")
+        assert extract_answer("The final answer is 3.50") == "3.50"
+
+    def test_answer_phrase_sentence(self):
+        assert extract_answer("The answer is 686. It follows that we are done.") == "686"
+
     def test_last_number_fallback(self):
         assert extract_answer("I think it is 3 then maybe 56") == "56"
 

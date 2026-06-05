@@ -46,9 +46,12 @@ def extract_answer(text: str) -> str | None:
         sub = _extract_brace(text, idx + len("\\boxed"))
         if sub is not None:
             return sub.strip()
-    m = re.findall(r"(?:final answer|answer)\s*(?:is|:|=)?\s*\$?([^\n.$]+)", text, re.I)
+    m = re.findall(r"(?:final answer|answer)\s*(?:is|:|=)?\s*\$?([^\n$]+)", text, re.I)
     if m:
-        return m[-1].strip()
+        # Cut at a sentence-ending period (period + space/end) but keep decimal points
+        # so "3.50" survives while "686. It follows..." becomes "686".
+        cand = re.split(r"\.(?:\s|$)", m[-1].strip())[0].strip()
+        return cand or None
     nums = re.findall(r"-?\d+(?:\.\d+)?", text)
     return nums[-1] if nums else None
 

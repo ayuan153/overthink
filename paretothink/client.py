@@ -15,6 +15,7 @@ import os
 # boto3 imports the SSL/Objective-C-linked libraries.
 os.environ.setdefault("OBJC_DISABLE_INITIALIZE_FORK_SAFETY", "YES")
 
+import random
 import time
 from dataclasses import dataclass
 
@@ -69,7 +70,7 @@ class BedrockClient:
                 code = e.response.get("Error", {}).get("Code", "")
                 if code in _RETRYABLE and attempt < self.max_retries - 1:
                     last_err = e
-                    time.sleep(2**attempt)  # 1,2,4,8,... seconds
+                    time.sleep(2**attempt + random.random())  # backoff + jitter
                     continue
                 raise
         assert last_err is not None
