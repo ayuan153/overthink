@@ -33,16 +33,27 @@ Both premises validated by the 2026-06-03 Bedrock probe; spec locked in `DESIGN.
 - ✅ Leapfrog watch + broadcast draft. `DESIGN.md` §8–9.
 
 ## NEXT (do this when resuming)
-**Phase 1a building (greenlit 2026-06-03).** Bedrock probe validated both premises (see
-`DECISIONS.md` 2026-06-03). Building the proof-slice per `DESIGN.md` §10, committing in slices:
+**Phase 1a code COMPLETE + unit-tested (28 pass); the live run is BLOCKED on AWS Midway auth.**
+Proof-slice built per `DESIGN.md` §10, committed in slices:
 
 1. ✅ DESIGN §10 spec + STATUS/DECISIONS logged.
-2. ⬜ Scaffold package + pyproject + venv; SymPy answer-checker + unit tests.
-3. ⬜ Bedrock Converse client wrapper (text + token usage).
-4. ⬜ BoN + confidence-weighted vote + consensus difficulty router (k0=5, τ_stop=0.80, λ ladder) + mock-client tests.
-5. ⬜ Eval harness + MATH-500 loader + CLI (1-shot / BoN-k / adaptive → accuracy + tokens).
-6. ⬜ Run on Bedrock (--limit 50) → first cost-frontier data/chart; record in DESIGN/STATUS.
-7. ⬜ yolo-reviewer pass; address findings; push.
+2. ✅ Scaffold + pyproject + venv; SymPy answer-checker + 19 tests. (`56d759b`)
+3. ✅ Bedrock Converse client wrapper. (`55cc875`)
+4. ✅ BoN weighted vote + DifficultyRouter (k0=5, τ_stop=0.80, λ ladder) + 9 tests. (`bb71031`)
+5. ✅ Eval harness + MATH-500 loader + CLI. (`f65f77d`) — validated end-to-end on `--limit 5`.
+6. ✅ macOS threaded-boto3 segfault fixed (OBJC_DISABLE_INITIALIZE_FORK_SAFETY). (`bf15d27`)
+7. ⛔ **BLOCKED — run on Bedrock (`--limit 50`) → first cost-frontier chart.** Needs creds.
+8. ⬜ yolo-reviewer pass; address findings; push.
+
+**UNBLOCK THE RUN (human, one step):** the sandbox cred tool is gone post-resume and isengardcli
+needs Midway. Run `mwinit` in a terminal (authenticates Midway). I created `~/.aws/config` with a
+`[profile kadmon]` (isengardcli credential_process, acct 137164215426, us-east-1). After `mwinit`,
+either I run `AWS_PROFILE=kadmon ./.venv/bin/python -m paretothink.cli --limit 50`, or you do.
+
+**Early signal (from `--limit 5` sanity run):** all 5 MATH problems escalated to R1 (consensus
+< 0.80) — MATH-500 is much harder for Llama-3-8B than the trivial arithmetic in the 06-03 probe,
+so τ_stop=0.80 may rarely early-stop. The 50-run will show the real easy/hard split; if few clear
+τ_stop, expect to **tune τ_stop down / add adaptive variants** to trace a frontier that beats fixed BoN.
 
 Side tasks (human): register PyPI `paretothink==0.0.1`; live USPTO TESS + registrar domain check; rename GitHub repo `overthink`→`paretothink` + `git remote set-url`.
 
