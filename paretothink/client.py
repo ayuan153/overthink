@@ -7,6 +7,14 @@ are still counted in ``outputTokens`` (the over-think cost), while ``text`` hold
 """
 from __future__ import annotations
 
+import os
+
+# macOS: the Objective-C runtime's fork/thread-safety guard segfaults boto3 when it is
+# called from many threads (classic threaded-boto3 crash on Darwin). Disabling the guard
+# is the standard workaround; the env var is a harmless no-op on Linux. Must be set before
+# boto3 imports the SSL/Objective-C-linked libraries.
+os.environ.setdefault("OBJC_DISABLE_INITIALIZE_FORK_SAFETY", "YES")
+
 import time
 from dataclasses import dataclass
 
